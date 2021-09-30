@@ -1,7 +1,7 @@
 module.exports = ({ github, context }) => {
   const { GITHUB_ISSUE_NUMBER } = process.env;
 
-  const body = "artifacts.txtが生成されました。artifactsから確認してください";
+  const body = "ci/cdがexit 1を返しても通知されるかのテスト (各force push版)";
 
   github.rest.issues
     .createComment({
