@@ -1,0 +1,33 @@
+name: Notify
+
+on:
+  workflow_run:
+    workflows:
+      - CI/CD
+    types:
+      - completed
+
+jobs:
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+      - name: Get PR number when push event
+        uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          state: open
+      - name: Notify
+        if: success() && steps.findPr.outputs.number
+        uses: actions/github-script@v5
+        env:
+          GITHUB_ISSUE_NUMBER: ${{ steps.findPr.outputs.pr }}
+        with:
+          script: |
+            const notify = require('./src/notify.js')
+            notify({ github, context })

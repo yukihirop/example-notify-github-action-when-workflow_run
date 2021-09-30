@@ -1,0 +1,21 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "!*"
+
+jobs:
+  create-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: create artifacts
+        run: echo 'artifacts' >> ./artifacts.txt
+      - name: save artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: created-artifacts
+          path: ./artifacts.txt

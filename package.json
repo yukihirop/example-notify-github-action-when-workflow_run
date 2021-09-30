@@ -1,0 +1,8 @@
+{
+  "name": "github-action-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:yukihirop/github-action-example.git",
+  "author": "yukihirop <te108186@gmail.com>",
+  "license": "MIT"
+}
