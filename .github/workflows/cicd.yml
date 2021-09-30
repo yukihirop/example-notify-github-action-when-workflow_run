@@ -19,3 +19,4 @@ jobs:
         with:
           name: created-artifacts
           path: ./artifacts.txt
+      - run: exit 1
